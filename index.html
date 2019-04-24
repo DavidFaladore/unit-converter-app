@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="sl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>David Faladore - UV dn2</title>
+
+    <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.ico" />
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="assets/stylesheet/main.min.css">
+
+    <style>
+        .tab-content {
+            display: none;
+            padding: 6px 12px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="tabbar-wrapper">
+        <nav class="tabbar inside">
+            <ul>
+                <li>
+                    <a class="active pressed tab-link" onclick="showTab(event, 'length')">
+                        <i class="fal fa-ruler-combined"></i>
+                        <span>Dolžina</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="tab-link" onclick="showTab(event, 'temperature')">
+                        <i class="fal fa-thermometer"></i>
+                        <span>Temperatura</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="tab-link" onclick="showTab(event, 'mass')">
+                        <i class="fal fa-weight"></i>
+                        <span>Masa</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="tab-content text-center" id="length">
+
+        <div class="con align-items-center justify-center">
+            <h3 class="d-inline-block align-middle"><i class="fal fa-ruler-combined"></i></h3>
+            <h1 class="d-inline-block align-middle">&nbsp;Dolžina</h1>
+        </div>
+        <div class="con calc__data">
+            <div class="col-3"></div>
+            <div class="col-6">
+                <form class="form">
+                    <div class="form__group">
+                        <div class="form__group">
+                            <input class="text-input" type="text" name="" placeholder="Vnesite dolžino">
+                            <select class="select-input" name="cars">
+                                <option value="m">m</option>
+                                <option value="cm">cm</option>
+                                <option value="mm">mm</option>
+                            </select>
+                        </div>
+                        <div class="form__toggle">
+                            <i class="fal fa-long-arrow-down"></i>
+                        </div>
+                        <div class="form__group">
+                            <input class="text-input" type="text" name="" placeholder="Rezultat" readonly>
+                            <select class="select-input" name="cars">
+                                <option value="m">m</option>
+                                <option value="cm">cm</option>
+                                <option value="mm">mm</option>
+                            </select>
+                        </div>
+                        <div class="form__button">
+                            <button class="button js-submit-button button--accent-bg " type="submit">
+                                <span class="button__text">Izračunajte</span>
+                                <span class="icon">
+                                    <svg viewBox="0 0 13 10" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M12.823 4.164L8.954.182a.592.592 0 0 0-.854 0 .635.635 0 0 0 0 .88l2.836 2.92H.604A.614.614 0 0 0 0 4.604c0 .344.27.622.604.622h10.332L8.1 8.146a.635.635 0 0 0 0 .88.594.594 0 0 0 .854 0l3.869-3.982a.635.635 0 0 0 0-.88z"
+                                            fill-rule="nonzero" fill="#00396B"></path>
+                                    </svg>
+                                    <!-- <i class="fal fa-long-arrow-right"></i> -->
+
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                    <div id="error-message-1" class="email-error-message "></div>
+                    <div id="success-message-1" class="email-success-message "></div>
+                </form>
+            </div>
+            <div class="col-3"></div>
+
+        </div>
+    </div>
+    <div class="tab-content text-center" id="temperature">
+        <h3 class="d-inline-block align-middle"><i class="fal fa-thermometer"></i></h3>
+        <h1 class="d-inline-block align-middle">&nbsp;Temperatura</h1>
+    </div>
+    <div class="tab-content text-center" id="mass">
+        <div class="con align-items-center justify-center">
+            <h3 class="d-inline-block align-middle"><i class="fal fa-weight"></i></h3>
+            <h1 class="d-inline-block align-middle">&nbsp;Masa</h1>
+        </div>
+        <div class="con content-half">
+            <div class="col-12">
+                <form class="form js-subscribe-mailchimp-form" data-op-form-id="0">
+                    <div class="form__inputs">
+                        <div class="form__input">
+                            <input class="text-input" type="text" name="" placeholder="Enter your email">
+                        </div>
+                        <div class="form__button content-half">
+                            <button class="button js-submit-button button--accent-bg " type="submit">
+                                <span class="button__text">Calculate</span>
+                                <span class="icon">
+                                    <!-- <svg viewBox="0 0 13 10" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M12.823 4.164L8.954.182a.592.592 0 0 0-.854 0 .635.635 0 0 0 0 .88l2.836 2.92H.604A.614.614 0 0 0 0 4.604c0 .344.27.622.604.622h10.332L8.1 8.146a.635.635 0 0 0 0 .88.594.594 0 0 0 .854 0l3.869-3.982a.635.635 0 0 0 0-.88z"
+                                            fill-rule="nonzero" fill="#00396B"></path>
+                                    </svg> -->
+                                    <i class="fal fa-long-arrow-right"></i>
+
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                    <div id="error-message-1" class="email-error-message "></div>
+                    <div id="success-message-1" class="email-success-message "></div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="assets/javascript/vendor/jquery-3.3.1.min.js"></script>
+
+    <script src="assets/javascript/vendor/feather.min.js"></script>
+    <script src="assets/javascript/vendor/font-awesome/all.js"></script>
+
+    <script src="assets/javascript/main.min.js"></script>
+
+    <script>
+        // You can also require other files to run in this process
+        require('./renderer.js')
+
+        function showTab(evt, tabName) {
+            var i, tabcontent, tablink;
+            tabcontent = $(".tab-content")
+
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablink = $(".tab-link")
+
+            for (i = 0; i < tablink.length; i++) {
+                tablink[i].className = tablink[i].className.replace(" active", "");
+            }
+
+            $("#" + tabName).fadeIn(1000);
+            evt.currentTarget.className += " active";
+        }
+
+        $(document).ready(function () {
+            showTab(event, 'length')
+        });
+
+    </script>
+</body>
+
+</html>
