@@ -13,22 +13,23 @@ function createWindow() {
     mainWindow = new BrowserWindow({
         width: 800,
         height: 600,
-        minHeight: 480,
+        minHeight: 525, //480,
         minWidth: 315,
         titleBarStyle: 'hidden',
         webPreferences: {
-            nodeIntegration: true
-        },
-        // webPreferences: {
-        //     devTools: false
-        // }
+            nodeIntegration: true,
+            //  devTools: false
+        }
     })
 
     // and load the index.html of the app.
     mainWindow.loadFile('index.html')
 
+    // Set app icon
+    mainWindow.setIcon('assets/images/icon.png')
+
     // Open the DevTools.
-    mainWindow.webContents.openDevTools()
+    // mainWindow.webContents.openDevTools()
 
     // Emitted when the window is closed.
     mainWindow.on('closed', function () {

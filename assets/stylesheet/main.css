@@ -5,7 +5,8 @@
 html {
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
-  padding: 10px; }
+  padding: 10px;
+  min-height: 100%; }
 
 * {
   box-sizing: inherit;
@@ -33,7 +34,8 @@ h6 {
   border-radius: 4px;
   letter-spacing: .1em;
   user-select: none;
-  line-height: 20px; }
+  line-height: 20px;
+  margin: 0; }
 
 .text-center {
   text-align: center; }
@@ -50,21 +52,46 @@ h6 {
 .justify-center {
   justify-content: center !important; }
 
+.calc__heading {
+  margin-top: 1rem; }
+
 .calc__data {
   align-items: center;
-  justify-content: center;
-  height: 74vh; }
+  justify-content: center; }
 
 .form__input,
 .form__group {
   margin: 1rem 0;
   position: relative; }
 
-.form__toggle {
+.form__info {
+  margin: 2rem 0; }
+
+.form__convert {
   margin: 1.25rem 0; }
+  .form__convert svg {
+    font-size: 20px; }
+
+.form__toggle {
+  display: inline;
+  position: absolute;
+  right: -20px;
+  top: 116px; }
+  .form__toggle svg {
+    font-size: 18px; }
 
 .form__button {
   margin: 3rem 0; }
+
+.info-badge {
+  font-family: Lato, sans-serif;
+  border: 2px solid transparent;
+  padding: 4px 8px;
+  height: 30px;
+  min-height: 30px;
+  color: #6C7486;
+  font-size: 14px;
+  transition: color .2s ease, background-color .2s ease, border-color .2s ease, box-shadow .2s ease, transform .2s ease; }
 
 .select-input {
   position: absolute;
@@ -91,21 +118,46 @@ h6 {
   cursor: pointer;
   transition: color .2s ease, background-color .2s ease, border-color .2s ease, box-shadow .2s ease, transform .2s ease; }
 
-.text-input {
+.badge-input {
+  position: absolute;
+  top: 7px;
+  right: 12px;
+  font-family: Lato, sans-serif;
+  background-color: #4d61fc;
+  color: #fff;
+  overflow: hidden;
+  display: inline-block;
+  border: 2px solid transparent;
+  height: 30px;
+  min-width: 60px;
+  min-height: 30px;
+  padding: 4px 8px 0;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px 0 rgba(136, 144, 195, 0.1), 0 5px 15px 0 rgba(37, 44, 97, 0.05);
+  font-size: 14px; }
+
+.text-input,
+.number-input {
   font-family: "Lato", sans-serif;
   width: 100%;
   border-radius: 4px;
-  padding: 0 92px 0 20px;
+  padding: 0 77px 0 20px;
   height: 44px;
   background-color: #fff;
   box-shadow: 0 2px 4px 0 rgba(136, 144, 195, 0.1), 0 5px 15px 0 rgba(37, 44, 97, 0.05);
   border: 1px solid #fff;
   font-size: 14px;
   transition: border-color 0.2s ease, background-color 0.2s ease; }
-  .text-input:focus {
+  .text-input:focus,
+  .number-input:focus {
     border-color: #4D61FC; }
-  .text-input:read-only {
+  .text-input:read-only,
+  .number-input:read-only {
     border-color: #fff !important; }
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none; }
 
 .button {
   font-family: "Lato", sans-serif;
@@ -183,6 +235,9 @@ button.button {
   transform: translateY(-2px);
   box-shadow: 0 2px 8px 0 rgba(136, 144, 195, 0.22), 0 8px 15px 0 rgba(37, 44, 97, 0.17); }
 
+.disabled {
+  pointer-events: none; }
+
 .tabbar-wrapper {
   position: absolute;
   bottom: 15px;
@@ -254,9 +309,9 @@ button.button {
           .tabbar-wrapper .tabbar ul li a.active svg {
             opacity: 1; }
           .tabbar-wrapper .tabbar ul li a:hover svg path {
-            fill: #626C82; }
+            fill: #6C7486; }
           .tabbar-wrapper .tabbar ul li a:hover span {
-            color: #626C82; }
+            color: #6C7486; }
   .tabbar-wrapper .tabbar.inside ul li a {
     overflow: hidden;
     height: 60px; }

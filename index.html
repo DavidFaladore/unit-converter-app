@@ -49,7 +49,7 @@
 
     <div class="tab-content text-center" id="length">
 
-        <div class="con align-items-center justify-center">
+        <div class="con calc__heading align-items-center justify-center">
             <h3 class="d-inline-block align-middle"><i class="fal fa-ruler-combined"></i></h3>
             <h1 class="d-inline-block align-middle">&nbsp;Dolžina</h1>
         </div>
@@ -59,41 +59,25 @@
                 <form class="form">
                     <div class="form__group">
                         <div class="form__group">
-                            <input class="text-input" type="text" name="" placeholder="Vnesite dolžino">
-                            <select class="select-input" name="cars">
-                                <option value="m">m</option>
-                                <option value="cm">cm</option>
-                                <option value="mm">mm</option>
+                            <input class="number-input metric-input" id="inpImperial" type="number"
+                                placeholder="Vnesite dolžino">
+                            <select class="select-input metric-select" id="selImperial">
                             </select>
                         </div>
-                        <div class="form__toggle">
-                            <i class="fal fa-long-arrow-down"></i>
+                        <div class="form__convert">
+                            <i class="fal fa-retweet"></i>
                         </div>
-                        <div class="form__group">
-                            <input class="text-input" type="text" name="" placeholder="Rezultat" readonly>
-                            <select class="select-input" name="cars">
-                                <option value="m">m</option>
-                                <option value="cm">cm</option>
-                                <option value="mm">mm</option>
-                            </select>
-                        </div>
-                        <div class="form__button">
-                            <button class="button js-submit-button button--accent-bg " type="submit">
-                                <span class="button__text">Izračunajte</span>
-                                <span class="icon">
-                                    <svg viewBox="0 0 13 10" xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M12.823 4.164L8.954.182a.592.592 0 0 0-.854 0 .635.635 0 0 0 0 .88l2.836 2.92H.604A.614.614 0 0 0 0 4.604c0 .344.27.622.604.622h10.332L8.1 8.146a.635.635 0 0 0 0 .88.594.594 0 0 0 .854 0l3.869-3.982a.635.635 0 0 0 0-.88z"
-                                            fill-rule="nonzero" fill="#00396B"></path>
-                                    </svg>
-                                    <!-- <i class="fal fa-long-arrow-right"></i> -->
 
-                                </span>
-                            </button>
+                        <div class="form__group">
+                            <input class="number-input metric-input" id="inpMetric" type="number"
+                                placeholder="Vnesite dolžino">
+                            <select class="select-input metric-select" id="selMetric">
+                            </select>
+                        </div>
+                        <div class="form__info">
+                            <span class="info-badge" id="infoMeasure"></span>
                         </div>
                     </div>
-                    <div id="error-message-1" class="email-error-message "></div>
-                    <div id="success-message-1" class="email-success-message "></div>
                 </form>
             </div>
             <div class="col-3"></div>
@@ -101,8 +85,45 @@
         </div>
     </div>
     <div class="tab-content text-center" id="temperature">
-        <h3 class="d-inline-block align-middle"><i class="fal fa-thermometer"></i></h3>
-        <h1 class="d-inline-block align-middle">&nbsp;Temperatura</h1>
+        <div class="con calc__heading align-items-center justify-center">
+            <h3 class="d-inline-block align-middle"><i class="fal fa-thermometer"></i></h3>
+            <h1 class="d-inline-block align-middle">&nbsp;Temperatura</h1>
+        </div>
+        <div class="con calc__data">
+            <div class="col-3"></div>
+            <div class="col-6">
+                <form class="form">
+                    <div class="form__group">
+                        <div class="form__group">
+                            <input class="number-input temperature-input" id="inpCelsius" type="number"
+                                placeholder="Vnesite temperaturo v C°">
+                            <div class="badge-input" id="">C°</div>
+                        </div>
+                        <div class="form__convert">
+                            <i class="fal fa-retweet"></i>
+                        </div>
+                        <div class="form__group">
+                            <input class="number-input temperature-input" id="inpFahrenheit" type="number"
+                                placeholder="Vnesite temperaturo v F°">
+                            <div class="badge-input" id="">F°</div>
+                        </div>
+                        <div class="form__convert">
+                            <i class="fal fa-retweet"></i>
+                        </div>
+                        <div class="form__group">
+                            <input class="number-input temperature-input" id="inpKelvin" type="number"
+                                placeholder="Vnesite temperaturo v K°">
+                            <div class="badge-input" id="">K°</div>
+                        </div>
+                        <div class="form__info">
+                            <span class="info-badge" id="">0C° = 33.8F° = 273.15K°</span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-3"></div>
+
+        </div>
     </div>
     <div class="tab-content text-center" id="mass">
         <div class="con align-items-center justify-center">
@@ -144,34 +165,7 @@
     <script src="assets/javascript/vendor/feather.min.js"></script>
     <script src="assets/javascript/vendor/font-awesome/all.js"></script>
 
-    <script src="assets/javascript/main.min.js"></script>
-
-    <script>
-        // You can also require other files to run in this process
-        require('./renderer.js')
-
-        function showTab(evt, tabName) {
-            var i, tabcontent, tablink;
-            tabcontent = $(".tab-content")
-
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
-            }
-            tablink = $(".tab-link")
-
-            for (i = 0; i < tablink.length; i++) {
-                tablink[i].className = tablink[i].className.replace(" active", "");
-            }
-
-            $("#" + tabName).fadeIn(1000);
-            evt.currentTarget.className += " active";
-        }
-
-        $(document).ready(function () {
-            showTab(event, 'length')
-        });
-
-    </script>
+    <script src="assets/javascript/main.js"></script>
 </body>
 
 </html>
