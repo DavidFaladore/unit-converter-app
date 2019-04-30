@@ -11,41 +11,10 @@
 
     <!-- Main CSS -->
     <link rel="stylesheet" href="assets/stylesheet/main.min.css">
-
-    <style>
-        .tab-content {
-            display: none;
-            padding: 6px 12px;
-        }
-
-    </style>
 </head>
 
 <body>
-    <div class="tabbar-wrapper">
-        <nav class="tabbar inside">
-            <ul>
-                <li>
-                    <a class="active pressed tab-link" onclick="showTab(event, 'length')">
-                        <i class="fal fa-ruler-combined"></i>
-                        <span>Dolžina</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="tab-link" onclick="showTab(event, 'temperature')">
-                        <i class="fal fa-thermometer"></i>
-                        <span>Temperatura</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="tab-link" onclick="showTab(event, 'mass')">
-                        <i class="fal fa-weight"></i>
-                        <span>Masa</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-    </div>
+    <div class="age-info">Ciljna skupina: > 16</div>
 
     <div class="tab-content text-center" id="length">
 
@@ -59,8 +28,7 @@
                 <form class="form">
                     <div class="form__group">
                         <div class="form__group">
-                            <input class="number-input metric-input" id="inpImperial" type="number"
-                                placeholder="Vnesite dolžino">
+                            <input class="number-input metric-input" id="inpImperial" type="number" placeholder="">
                             <select class="select-input metric-select" id="selImperial">
                             </select>
                         </div>
@@ -69,13 +37,80 @@
                         </div>
 
                         <div class="form__group">
-                            <input class="number-input metric-input" id="inpMetric" type="number"
-                                placeholder="Vnesite dolžino">
+                            <input class="number-input metric-input" id="inpMetric" type="number" placeholder="">
                             <select class="select-input metric-select" id="selMetric">
                             </select>
                         </div>
                         <div class="form__info">
-                            <span class="info-badge" id="infoMeasure"></span>
+                            <span class="info-badge" id="infoLength"></span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-3"></div>
+
+        </div>
+    </div>
+    <div class="tab-content text-center" id="area">
+
+        <div class="con calc__heading align-items-center justify-center">
+            <h3 class="d-inline-block align-middle"><i class="fal fa-layer-group"></i></h3>
+            <h1 class="d-inline-block align-middle">&nbsp;Površina</h1>
+        </div>
+        <div class="con calc__data">
+            <div class="col-3"></div>
+            <div class="col-6">
+                <form class="form">
+                    <div class="form__group">
+                        <div class="form__group">
+                            <input class="number-input area-input" id="inpAreaTop" type="number" placeholder="">
+                            <select class="select-input area-select" id="selAreaTop">
+                            </select>
+                        </div>
+                        <div class="form__convert">
+                            <i class="fal fa-retweet"></i>
+                        </div>
+                        <div class="form__group">
+                            <input class="number-input area-input" id="inpAreaBottom" type="number" placeholder="">
+                            <select class="select-input area-select" id="selAreaBottom">
+                            </select>
+                        </div>
+                        <div class="form__info">
+                            <span class="info-badge" id="infoArea"></span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-3"></div>
+
+        </div>
+    </div>
+    <div class="tab-content text-center" id="volume">
+
+        <div class="con calc__heading align-items-center justify-center">
+            <h3 class="d-inline-block align-middle"><i class="fal fa-glass"></i></h3>
+            <h1 class="d-inline-block align-middle">&nbsp;Prostornina</h1>
+        </div>
+        <div class="con calc__data">
+            <div class="col-3"></div>
+            <div class="col-6">
+                <form class="form">
+                    <div class="form__group">
+                        <div class="form__group">
+                            <input class="number-input volume-input" id="inpVolumeTop" type="number" placeholder="">
+                            <select class="select-input volume-select" id="selVolumeTop">
+                            </select>
+                        </div>
+                        <div class="form__convert">
+                            <i class="fal fa-retweet"></i>
+                        </div>
+                        <div class="form__group">
+                            <input class="number-input volume-input" id="inpVolumeBottom" type="number" placeholder="">
+                            <select class="select-input volume-select" id="selVolumeBottom">
+                            </select>
+                        </div>
+                        <div class="form__info">
+                            <span class="info-badge" id="infoVolume"></span>
                         </div>
                     </div>
                 </form>
@@ -116,7 +151,7 @@
                             <div class="badge-input" id="">K°</div>
                         </div>
                         <div class="form__info">
-                            <span class="info-badge" id="">0C° = 33.8F° = 273.15K°</span>
+                            <span class="info-badge" id="infoTemperature"></span>
                         </div>
                     </div>
                 </form>
@@ -125,39 +160,37 @@
 
         </div>
     </div>
-    <div class="tab-content text-center" id="mass">
-        <div class="con align-items-center justify-center">
-            <h3 class="d-inline-block align-middle"><i class="fal fa-weight"></i></h3>
-            <h1 class="d-inline-block align-middle">&nbsp;Masa</h1>
-        </div>
-        <div class="con content-half">
-            <div class="col-12">
-                <form class="form js-subscribe-mailchimp-form" data-op-form-id="0">
-                    <div class="form__inputs">
-                        <div class="form__input">
-                            <input class="text-input" type="text" name="" placeholder="Enter your email">
-                        </div>
-                        <div class="form__button content-half">
-                            <button class="button js-submit-button button--accent-bg " type="submit">
-                                <span class="button__text">Calculate</span>
-                                <span class="icon">
-                                    <!-- <svg viewBox="0 0 13 10" xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M12.823 4.164L8.954.182a.592.592 0 0 0-.854 0 .635.635 0 0 0 0 .88l2.836 2.92H.604A.614.614 0 0 0 0 4.604c0 .344.27.622.604.622h10.332L8.1 8.146a.635.635 0 0 0 0 .88.594.594 0 0 0 .854 0l3.869-3.982a.635.635 0 0 0 0-.88z"
-                                            fill-rule="nonzero" fill="#00396B"></path>
-                                    </svg> -->
-                                    <i class="fal fa-long-arrow-right"></i>
 
-                                </span>
-                            </button>
-                        </div>
-                    </div>
-                    <div id="error-message-1" class="email-error-message "></div>
-                    <div id="success-message-1" class="email-success-message "></div>
-                </form>
-            </div>
+    <div class="tabbar-wrapper">
+        <nav class="tabbar">
+            <ul>
+                <li>
+                    <a href="javascript: void(0)" class="active pressed tab-link" onclick="showTab(event, 'length')">
+                        <i class="fal fa-ruler-combined"></i>
+                        <span>Dolžina</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript: void(0)" class="tab-link" onclick="showTab(event, 'area')">
+                        <i class="fal fa-layer-group"></i>
+                        <span>Površina</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript: void(0)" class="tab-link" onclick="showTab(event, 'volume')">
+                        <i class="fal fa-glass"></i>
+                        <span>Prostornina</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript: void(0)" class="tab-link" onclick="showTab(event, 'temperature')">
+                        <i class="fal fa-thermometer"></i>
+                        <span>Temperatura</span>
+                    </a>
+                </li>
 
-        </div>
+            </ul>
+        </nav>
     </div>
 
     <script src="assets/javascript/vendor/jquery-3.3.1.min.js"></script>

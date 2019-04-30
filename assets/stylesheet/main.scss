@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&subset=latin-ext');
-@import url('https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&subset=latin-ext');
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i');
 @import url('https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i&subset=latin-ext');
 
@@ -10,10 +8,10 @@ sans-serif;
 $primary: #4D61FC;
 $inactive: #A8B2C9;
 $text: #6C7486;
-$width: 220px;
+$width: 290px;
 $height: 60px;
 
-// Center & dribbble
+// Styles
 html {
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
@@ -32,16 +30,8 @@ html {
 }
 
 body {
-    // min-height: 100vh;
-    // font-family: Roboto, sans-serif;
     font-family: $fontfamily;
-    // font-family: 'Open Sans',
-    // sans-serif;
-
-    // color: #ADAFB6;
-    // color: #fff;
     background: #F5F9FF;
-    // background: #171C28;
     color: #ADAFB6;
 }
 
@@ -84,6 +74,14 @@ h6 {
     justify-content: center !important;
 }
 
+.age-info{
+    position: absolute;
+    color: $inactive;
+    font-size: 14px;
+    bottom: 15px;
+    right: 15px;
+}
+
 .calc__heading{
     margin-top: 1rem;
 }
@@ -111,17 +109,6 @@ h6 {
     }
 }
 
-.form__toggle{
-    display: inline;
-    position: absolute;
-    right: -20px;
-    top: 116px;
-
-    svg{
-        font-size: 18px;
-    }
-}
-
 .form__button{
     margin: 3rem 0;
 }
@@ -129,17 +116,11 @@ h6 {
 .info-badge{
     font-family: Lato,
     sans-serif;
-    // display: inline-block;
-    // background-color: #4d61fc;
-    // color: #fff;
     border: 2px solid transparent;
     padding: 4px 8px;
     height: 30px;
     min-height: 30px;
     color: $text;
-    // border-radius: 4px;
-    // box-shadow: 0 2px 4px 0 rgba(136, 144, 195, .1),
-    // 0 5px 15px 0 rgba(37, 44, 97, .05);
     font-size: 14px;
     transition: color .2s ease,
     background-color .2s ease,
@@ -208,10 +189,10 @@ h6 {
     border-radius: 4px;
     padding: 0 77px 0 20px;
     height: 44px;
-    background-color: #fff;///rgba(246, 246, 246, 0.3);
+    background-color: #fff;
     box-shadow: 0 2px 4px 0 rgba(136, 144, 195, 0.1),
     0 5px 15px 0 rgba(37, 44, 97, 0.05);
-    border: 1px solid #fff; //#D8DDE6;
+    border: 1px solid #fff;
     font-size: 14px;
     transition: border-color 0.2s ease,
     background-color 0.2s ease;
@@ -229,102 +210,14 @@ input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
 }
-    
-.button{
-        font-family: $fontfamily;
-        overflow: hidden;
-        display: inline-block;
-        position: relative;
-        padding: 12px 20px 12px;
-        min-width: 120px;
-        border: 2px solid transparent;
-        min-height: 44px;
-        border-radius: 4px;
-        box-shadow: 0 2px 4px 0 rgba(136, 144, 195, 0.2),
-        0 5px 15px 0 rgba(37, 44, 97, 0.15);
-        font-size: 14px;
-        font-weight: 700;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        text-align: center;
-        text-decoration: none;
-        cursor: pointer;
-        transition: color 0.2s ease,
-        background-color 0.2s ease,
-        border-color 0.2s ease,
-        box-shadow 0.2s ease,
-        transform 0.2s ease;
-}
-
-button.button {
-    padding-top: 11px;
-    padding-bottom: 11px;
-}
-
-.button:hover .icon,
-.button:focus .icon {
-    transform: translateX(3px);
-}
-
-.button--accent-bg {
-    background-color: #4D61FC;
-    color: white;
-}
-
-.button__text {
-    vertical-align: middle;
-    transition: opacity 0.2s ease, transform 0.2s ease;
-}
-
-.button .spinner {
-    position: absolute;
-    opacity: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    top: 0;
-    margin: auto;
-}
-
-.button__submit_success {
-    position: absolute;
-    z-index: 10;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    top: 0;
-    margin: auto;
-}
-
-.button .icon {
-    display: inline-block;
-    vertical-align: middle;
-    height: 15px;
-    width: 14px;
-    // font-size: 1rem;
-    margin-left: 7px;
-    transition: opacity 0.2s ease, transform 0.2s ease;
-}
-
-.button--accent-bg .icon svg *,
-.button--accent-bg .button__system_icon svg * {
-    fill: white;
-}
-
-.button--accent-bg:hover {
-    background-color: #344bfc;
-}
-
-.button:hover,
-.button:focus {
-    transform: translateY(-2px);
-    box-shadow: 0 2px 8px 0 rgba(136, 144, 195, 0.22), 0 8px 15px 0 rgba(37, 44, 97, 0.17);
-}
 
 .disabled{
     pointer-events: none;
+}
+
+.tab-content {
+    display: none;
+    padding: 6px 0;
 }
 
 .tabbar-wrapper{
@@ -374,10 +267,10 @@ button.button {
                     user-select: none;
                     height: $height;
                     background: #fff;
+                    overflow: hidden;
+                    height: 60px;
 
                     svg {
-                        // width: 16px;
-                        // height: 16px;
                         width: 18px;
                         height: 18px;
                         display: block;
@@ -388,7 +281,6 @@ button.button {
                         will-change: transform, fill;
                         transform: scale(1) translate3d(0, 0, 0);
                         
-
                         path{
                             fill: $inactive;
                             stroke: $inactive;
@@ -407,32 +299,42 @@ button.button {
                         font-size: 8px;
                         font-weight: 500;
                         pointer-events: none;
-                        text-transform: uppercase;
-                        z-index: -1;
+                        text-transform: uppercase;     
                         border-radius: 4px;
                         letter-spacing: .1em;
                         user-select: none;
                         line-height: 20px;
-                        transition: transform .3s cubic-bezier(.9, -.4, .2, 1.2) .6s;
+                        z-index: 1;
+                        transition: transform .4s ease 0s;
+                        transform: translate(0, -100%);
                         background: #fff;
                         color: $inactive;
                     }
 
-                    &.pressed { 
-                        // svg { 
-                        //     opacity: 1;
-                        //     transform: translate3d(0, 0, 0) scale(.86);
-                        // }
+                    &.pressed {
+                        svg {
+                            transform: translateY(5px) scale(.85);
 
-                        // span {
-                        //     transition-delay: .3s;
-                        //     transform: translate(0, -120%);
-                        // }
+                            path {
+                                fill: $primary !important;
+                            }
+
+                        }
+
+                        span {
+                            color: $primary;
+                            transition-delay: .3s;
+                            transform: translate(0, 7px);
+                        }
                     }
 
                     &.active {
                         svg {
                             opacity: 1;
+                        }
+
+                        path {
+                            fill: $primary !important;
                         }
                     }
 
@@ -451,48 +353,18 @@ button.button {
             }
         }
     }
-
-    .tabbar {
-        &.inside {
-            ul {
-                li {
-                    a {
-                        overflow: hidden;
-                        height: 60px;
-
-                        span {
-                            z-index: 1;
-                            transition: transform .4s ease 0s;
-                            transform: translate(0, -100%);
-                        }
-
-                        &.pressed {
-                            svg {
-                                transform: translateY(5px) scale(.85);
-                                
-                                path{
-                                    fill: $primary !important;
-                                }
-                                
-                            }
-
-                            span {
-                                color: $primary;
-                                transition-delay: .3s;
-                                transform: translate(0, 7px);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
 }
 
 @media (max-width: 776px) {
     .button{
         display: block;
         width: 100%;
+    }
+}
+
+@media (max-width: 576px) {
+    .age-info {
+        display: none;
     }
 }
 

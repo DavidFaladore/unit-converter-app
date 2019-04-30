@@ -1,110 +1,47 @@
 // You can also require other files to run in this process
 require('./renderer.js')
 var $ = require('jQuery')
+var convert = require('convert-units')
 
 feather.replace()
 
-// Metrics calculator
+// Length calculator
 var inpImperial = $('#inpImperial'),
     selImperial = $('#selImperial'),
     inpMetric = $('#inpMetric'),
     selMetric = $('#selMetric'),
     lastFocus = $('#inpImperial').focus(),
-    infoMeasure = $('#infoMeasure');
+    infoLength = $('#infoLength');
 
-convertImperialMetric.imperials = {
-    inch: 1,
-    feet: 12,
-    yard: 36,
-    mile: 63360
-};
-
-convertImperialMetric.metrics = {
-    mm: 10,
-    cm: 1,
-    dm: .1,
-    m: .01,
-    km: .00001
-};
-
-function convertImperialMetric() {
-    var metrics = convertImperialMetric.metrics,
-        imperials = convertImperialMetric.imperials,
-        args = arguments,
-        conversionTypes = {
-            imperial: 'imperial',
-            metric: 'metric'
-        },
-        toFixed = false,
-        toFixedX = 2,
-        intX, typImp, typMet, conType = 'metric',
-        $ret;
-
-    conversionTypes.i = conversionTypes.imp = conversionTypes.imperial;
-    conversionTypes.m = conversionTypes.met = conversionTypes.metric;
-
-    function setVarz(c) {
-        for (i in c) {
-            var a = c[i];
-            switch (typeof a) {
-                case "boolean":
-                    toFixed = a;
-                    break;
-                case "number":
-                    void 0 == intX ? intX = a : toFixedX = a;
-                    break;
-                case "string":
-                    isNaN(parseFloat(a)) || void 0 != intX ? imperials.hasOwnProperty(a) ? typImp = a : metrics.hasOwnProperty(a) ? typMet = a : conversionTypes.hasOwnProperty(a) && (conType = conversionTypes[a]) : intX = parseFloat(a);
-                    break;
-                case "object":
-                    if (a instanceof Array) setVarz.apply(this, [a]);
-                    else if (a instanceof Object)
-                        for (h in a) {
-                            var b = a[h];
-                            conversionTypes.hasOwnProperty(h) ? conType = conversionTypes[h] : imperials.hasOwnProperty(h) ? (typImp =
-                                h, void 0 != intX || isNaN(parseFloat(b)) || (intX = parseFloat(b))) : metrics.hasOwnProperty(h) ? (typMet = h, void 0 != intX || isNaN(parseFloat(b)) || (intX = parseFloat(b))) : setVarz.apply(this, [
-                                [b]
-                            ])
-                        }
-            }
-        }
-    };
-    setVarz(args);
-
-    if (!isNaN(parseFloat(intX)) && imperials.hasOwnProperty(typImp) && metrics.hasOwnProperty(typMet) && conversionTypes.hasOwnProperty(conType)) {
-        if (conType == 'metric') {
-            var inches = intX * imperials[typImp],
-                centimeters = inches * 2.54;
-            $ret = centimeters * metrics[typMet];
-        } else if (conType == 'imperial') {
-            var centimeters = intX / metrics[typMet],
-                inches = centimeters / 2.54;
-            $ret = inches / imperials[typImp];
-        }
-    }
-
-    return toFixed ? parseFloat($ret.toFixed(toFixedX)) : $ret;
-}
+convertLength = Array(
+    "mm",
+    "cm",
+    "m",
+    "in",
+    "ft",
+    "mi"
+);
 
 $(function () {
-    $.each(convertImperialMetric.imperials, function (x) {
+    $.each(convertLength, function (x) {
         selImperial.prepend($('<option />', {
-            text: x,
-            value: x
+            text: convertLength[x],
+            value: convertLength[x]
+        }));
+        selMetric.prepend($('<option />', {
+            text: convertLength[x],
+            value: convertLength[x]
         }));
     });
-    $('#selImperial option[value=inch]').prop('selected', true).parent().change();
+    $('#selImperial option[value=in]').prop('selected', true).parent().change();
     inpImperial.attr('placeholder', 'Vnesite dolžino v ' + selImperial.find(":selected").text())
 
-    $.each(convertImperialMetric.metrics, function (x) {
-        selMetric.prepend($('<option />', {
-            text: x,
-            value: x
-        }));
-    });
     $('#selMetric option[value=mm]').prop('selected', true).parent().change();
     inpMetric.attr('placeholder', 'Vnesite dolžino v ' + selMetric.find(":selected").text())
-    infoMeasure.text('1' + selImperial.find(":selected").text() + " = " + convertImperialMetric(1, "mm", "inch") + selMetric.find(":selected").text());
+    infoLength.text('1' + selImperial.find(":selected").text() + " = " + convert(1).from("mm").to("in") + selMetric.find(":selected").text());
+
+    $('#selImperial option[value=' + selMetric.find(":selected").val() + ']').hide()
+    $('#selMetric option[value=' + selImperial.find(":selected").val() + ']').hide()
 
     $(document)
         .on('focus', 'input.metric-input', function (e) {
@@ -117,30 +54,32 @@ $(function () {
 
             if (lastFocus[0].id == inpImperial[0].id) {
                 inpMetric.val('');
-                if (!isNaN(val)) inpMetric.val(convertImperialMetric(val, imp, met));
+                inpMetric.val(convert(val).from(imp).to(met));
             } else if (lastFocus[0].id == inpMetric[0].id) {
                 inpImperial.val('');
-                if (!isNaN(val)) inpImperial.val(convertImperialMetric(val, imp, met, 'imperial'));
+                inpImperial.val(convert(val).from(met).to(imp));
             }
         })
         .on('change', 'select.metric-select', function (e) {
             lastFocus.trigger('keyup');
             inpImperial.attr('placeholder', 'Vnesite dolžino v ' + selImperial.find(":selected").text());
             inpMetric.attr('placeholder', 'Vnesite dolžino v ' + selMetric.find(":selected").text());
-            infoMeasure.text('1' + selImperial.find(":selected").text() + " = " + convertImperialMetric(1, selMetric.find(":selected").text(), selImperial.find(":selected").text()) + selMetric.find(":selected").text());
+            infoLength.text('1' + selImperial.find(":selected").text() + " = " + convert(1).from(selMetric.find(":selected").text()).to(selImperial.find(":selected").text()) + selMetric.find(":selected").text());
+
+            $('#selImperial option').show()
+            $('#selMetric option').show()
+            $('#selImperial option[value=' + selMetric.find(":selected").val() + ']').hide()
+            $('#selMetric option[value=' + selImperial.find(":selected").val() + ']').hide()
         })
 })
 
 // Temperature calculator
 var inpCelsius = $('#inpCelsius'),
     inpFahrenheit = $('#inpFahrenheit'),
-    inpKelvin = $('#inpKelvin');
+    inpKelvin = $('#inpKelvin'),
+    infoTemperature = $('#infoTemperature');
 
-var convertTemperature = {
-    c: 0,
-    f: 32,
-    k: 273.15,
-};
+infoTemperature.text('0C° = ' + convert(0).from('C').to('F') + "F° = " + convert(0).from('C').to('K') + "K°")
 
 $(function () {
     $(document)
@@ -151,17 +90,174 @@ $(function () {
                 kel = inpKelvin.val()
 
             if (val == cel) {
-                inpFahrenheit.val(convertTemperature.f + (val * (9 / 5)))
-                inpKelvin.val(convertTemperature.k + val)
+                inpFahrenheit.val(convert(cel).from("C").to("F"))
+                inpKelvin.val(convert(cel).from("C").to("K"))
             } else if (val == far) {
-                inpCelsius.val((val - convertTemperature.f) * (5 / 9));
-                inpKelvin.val((val - convertTemperature.f) * (5 / 9) + convertTemperature.k)
+                inpCelsius.val(convert(far).from("F").to("C"));
+                inpKelvin.val(convert(far).from("F").to("K"))
             } else if (val == kel) {
-                inpCelsius.val(val - convertTemperature.k)
-                inpFahrenheit.val((val - convertTemperature.f) * (9 / 5) + convertTemperature.f)
+                inpCelsius.val(convert(kel).from("K").to("C"))
+                inpFahrenheit.val(convert(kel).from("K").to("F"))
             } else {
                 clearFields();
             }
+        })
+})
+
+// Area calculator
+var inpAreaTop = $('#inpAreaTop'),
+    selAreaTop = $('#selAreaTop'),
+    inpAreaBottom = $('#inpAreaBottom'),
+    selAreaBottom = $('#selAreaBottom'),
+    lastFocus = $('#inpAreaTop').focus(),
+    infoArea = $('#infoArea');
+
+convertArea = Array(
+    "mm2",
+    "cm2",
+    "m2",
+    "ha",
+    "km2",
+    "in2",
+    "ft2",
+    "mi2"
+);
+
+$(function () {
+    $.each(convertArea, function (x) {
+        var convertAreaItem = ""
+        if (convertArea[x].includes("2")) {
+            convertAreaItem = convertArea[x].split("2")[0] + "&sup2;";
+        } else {
+            convertAreaItem = convertArea[x]
+        }
+        selAreaTop.prepend($('<option />', {
+
+            html: convertAreaItem,
+            value: convertArea[x]
+        }));
+        selAreaBottom.prepend($('<option />', {
+            html: convertAreaItem,
+            value: convertArea[x]
+        }));
+    });
+
+    $('#selAreaTop option[value=in2]').prop('selected', true).parent().change();
+    inpAreaTop.attr('placeholder', 'Vnesite površino v ' + selAreaTop.find(":selected").text())
+
+    $('#selAreaBottom option[value=mm2]').prop('selected', true).parent().change();
+    inpAreaBottom.attr('placeholder', 'Vnesite površino v ' + selAreaBottom.find(":selected").text())
+    infoArea.text('1' + selAreaTop.find(":selected").text() + " = " + convert(1).from("in2").to("mm2") + selAreaBottom.find(":selected").text());
+
+    $('#selAreaTop option[value=' + selAreaBottom.find(":selected").val() + ']').hide()
+    $('#selAreaBottom option[value=' + selAreaTop.find(":selected").val() + ']').hide()
+    $(document)
+        .on('focus', 'input.area-input', function (e) {
+            lastFocus = $(this);
+        })
+        .on('keyup', 'input.area-input', function (e) {
+            var val = parseFloat($(this).val()),
+                areaTop = selAreaTop.val(),
+                areaBottom = selAreaBottom.val();
+
+            if (lastFocus[0].id == inpAreaTop[0].id) {
+                inpAreaBottom.val('');
+                inpAreaBottom.val(convert(val).from(areaTop).to(areaBottom));
+
+            } else if (lastFocus[0].id == inpAreaBottom[0].id) {
+                inpAreaTop.val('');
+                inpAreaTop.val(convert(val).from(areaBottom).to(areaTop));
+            }
+        })
+        .on('change', 'select.area-select', function (e) {
+            lastFocus.trigger('keyup');
+            inpAreaTop.attr('placeholder', 'Vnesite površino v ' + selAreaTop.find(":selected").text());
+            inpAreaBottom.attr('placeholder', 'Vnesite površino v ' + selAreaBottom.find(":selected").text());
+            $('#selAreaTop option').show();
+            $('#selAreaBottom option').show();
+            $('#selAreaTop option[value=' + selAreaBottom.find(":selected").val() + ']').hide()
+            $('#selAreaBottom option[value=' + selAreaTop.find(":selected").val() + ']').hide()
+            infoArea.text('1' + selAreaTop.find(":selected").text() + " = " + convert(1).from(selAreaTop.find(":selected").val()).to(selAreaBottom.find(":selected").val()) + selAreaBottom.find(":selected").text());
+        })
+})
+
+// Volume calculator
+var inpVolumeTop = $('#inpVolumeTop'),
+    selVolumeTop = $('#selVolumeTop'),
+    inpVolumeBottom = $('#inpVolumeBottom'),
+    selVolumeBottom = $('#selVolumeBottom'),
+    lastFocus = $('#inpVolumeTop').focus(),
+    infoVolume = $('#infoVolume');
+
+convertVolume = Array(
+    "mm3",
+    "cm3",
+    "ml",
+    "l",
+    "m3",
+    "km3",
+    "in3",
+    "fl-oz",
+    "gal",
+    "yd3"
+);
+
+$(function () {
+    $.each(convertVolume, function (x) {
+        var convertVolumeItem = ""
+        if (convertVolume[x].includes("3")) {
+            convertVolumeItem = convertVolume[x].split("3")[0] + "&sup3;";
+        } else {
+            convertVolumeItem = convertVolume[x]
+        }
+        selVolumeTop.prepend($('<option />', {
+            html: convertVolumeItem,
+            value: convertVolume[x]
+        }));
+        selVolumeBottom.prepend($('<option />', {
+            html: convertVolumeItem,
+            value: convertVolume[x]
+        }));
+    });
+
+    $('#selVolumeTop option[value=in3]').prop('selected', true).parent().change();
+    inpVolumeTop.attr('placeholder', 'Vnesite prostornino v ' + selVolumeTop.find(":selected").text())
+
+    $('#selVolumeBottom option[value=mm3]').prop('selected', true).parent().change();
+    inpVolumeBottom.attr('placeholder', 'Vnesite prostornino v ' + selVolumeBottom.find(":selected").text())
+    infoVolume.text('1' + selVolumeTop.find(":selected").text() + " = " + convert(1).from("in3").to("mm3") + selVolumeBottom.find(":selected").text());
+
+    $('#selVolumeTop option[value=' + selVolumeBottom.find(":selected").val() + ']').hide()
+    $('#selVolumeBottom option[value=' + selVolumeTop.find(":selected").val() + ']').hide()
+
+    $(document)
+        .on('focus', 'input.volume-input', function (e) {
+            lastFocus = $(this);
+        })
+        .on('keyup', 'input.volume-input', function (e) {
+            var val = parseFloat($(this).val()),
+                areaTop = selVolumeTop.val(),
+                areaBottom = selVolumeBottom.val();
+
+            if (lastFocus[0].id == inpVolumeTop[0].id) {
+                inpVolumeBottom.val('');
+                inpVolumeBottom.val(convert(val).from(areaTop).to(areaBottom));
+
+            } else if (lastFocus[0].id == inpVolumeBottom[0].id) {
+                inpVolumeTop.val('');
+                inpVolumeTop.val(convert(val).from(areaBottom).to(areaTop));
+            }
+        })
+        .on('change', 'select.volume-select', function (e) {
+            lastFocus.trigger('keyup');
+            inpVolumeTop.attr('placeholder', 'Vnesite prostornino v ' + selVolumeTop.find(":selected").text());
+            inpVolumeBottom.attr('placeholder', 'Vnesite prostornino v ' + selVolumeBottom.find(":selected").text());
+            infoVolume.text('1' + selVolumeTop.find(":selected").text() + " = " + convert(1).from(selVolumeTop.find(":selected").val()).to(selVolumeBottom.find(":selected").val()) + selVolumeBottom.find(":selected").text());
+
+            $('#selVolumeTop option').show();
+            $('#selVolumeBottom option').show();
+            $('#selVolumeTop option[value=' + selVolumeBottom.find(":selected").val() + ']').hide()
+            $('#selVolumeBottom option[value=' + selVolumeTop.find(":selected").val() + ']').hide()
         })
 })
 

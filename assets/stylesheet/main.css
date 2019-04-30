@@ -1,5 +1,3 @@
-@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&subset=latin-ext");
-@import url("https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&subset=latin-ext");
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i");
 @import url("https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i&subset=latin-ext");
 html {
@@ -52,6 +50,13 @@ h6 {
 .justify-center {
   justify-content: center !important; }
 
+.age-info {
+  position: absolute;
+  color: #A8B2C9;
+  font-size: 14px;
+  bottom: 15px;
+  right: 15px; }
+
 .calc__heading {
   margin-top: 1rem; }
 
@@ -71,14 +76,6 @@ h6 {
   margin: 1.25rem 0; }
   .form__convert svg {
     font-size: 20px; }
-
-.form__toggle {
-  display: inline;
-  position: absolute;
-  right: -20px;
-  top: 116px; }
-  .form__toggle svg {
-    font-size: 18px; }
 
 .form__button {
   margin: 3rem 0; }
@@ -159,84 +156,12 @@ input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none; }
 
-.button {
-  font-family: "Lato", sans-serif;
-  overflow: hidden;
-  display: inline-block;
-  position: relative;
-  padding: 12px 20px 12px;
-  min-width: 120px;
-  border: 2px solid transparent;
-  min-height: 44px;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px 0 rgba(136, 144, 195, 0.2), 0 5px 15px 0 rgba(37, 44, 97, 0.15);
-  font-size: 14px;
-  font-weight: 700;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  text-align: center;
-  text-decoration: none;
-  cursor: pointer;
-  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease; }
-
-button.button {
-  padding-top: 11px;
-  padding-bottom: 11px; }
-
-.button:hover .icon,
-.button:focus .icon {
-  transform: translateX(3px); }
-
-.button--accent-bg {
-  background-color: #4D61FC;
-  color: white; }
-
-.button__text {
-  vertical-align: middle;
-  transition: opacity 0.2s ease, transform 0.2s ease; }
-
-.button .spinner {
-  position: absolute;
-  opacity: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  top: 0;
-  margin: auto; }
-
-.button__submit_success {
-  position: absolute;
-  z-index: 10;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  top: 0;
-  margin: auto; }
-
-.button .icon {
-  display: inline-block;
-  vertical-align: middle;
-  height: 15px;
-  width: 14px;
-  margin-left: 7px;
-  transition: opacity 0.2s ease, transform 0.2s ease; }
-
-.button--accent-bg .icon svg *,
-.button--accent-bg .button__system_icon svg * {
-  fill: white; }
-
-.button--accent-bg:hover {
-  background-color: #344bfc; }
-
-.button:hover,
-.button:focus {
-  transform: translateY(-2px);
-  box-shadow: 0 2px 8px 0 rgba(136, 144, 195, 0.22), 0 8px 15px 0 rgba(37, 44, 97, 0.17); }
-
 .disabled {
   pointer-events: none; }
+
+.tab-content {
+  display: none;
+  padding: 6px 0; }
 
 .tabbar-wrapper {
   position: absolute;
@@ -245,7 +170,7 @@ button.button {
   transform: translateX(-50%); }
   .tabbar-wrapper .tabbar {
     border-radius: 4px;
-    width: 220px;
+    width: 290px;
     background: #fff;
     box-shadow: 0 4px 12px -1px rgba(18, 22, 33, 0.1); }
     .tabbar-wrapper .tabbar ul {
@@ -271,7 +196,9 @@ button.button {
           z-index: initial;
           user-select: none;
           height: 60px;
-          background: #fff; }
+          background: #fff;
+          overflow: hidden;
+          height: 60px; }
           .tabbar-wrapper .tabbar ul li a svg {
             width: 18px;
             height: 18px;
@@ -298,40 +225,40 @@ button.button {
             font-weight: 500;
             pointer-events: none;
             text-transform: uppercase;
-            z-index: -1;
             border-radius: 4px;
             letter-spacing: .1em;
             user-select: none;
             line-height: 20px;
-            transition: transform 0.3s cubic-bezier(0.9, -0.4, 0.2, 1.2) 0.6s;
+            z-index: 1;
+            transition: transform .4s ease 0s;
+            transform: translate(0, -100%);
             background: #fff;
             color: #A8B2C9; }
+          .tabbar-wrapper .tabbar ul li a.pressed svg {
+            transform: translateY(5px) scale(0.85); }
+            .tabbar-wrapper .tabbar ul li a.pressed svg path {
+              fill: #4D61FC !important; }
+          .tabbar-wrapper .tabbar ul li a.pressed span {
+            color: #4D61FC;
+            transition-delay: .3s;
+            transform: translate(0, 7px); }
           .tabbar-wrapper .tabbar ul li a.active svg {
             opacity: 1; }
+          .tabbar-wrapper .tabbar ul li a.active path {
+            fill: #4D61FC !important; }
           .tabbar-wrapper .tabbar ul li a:hover svg path {
             fill: #6C7486; }
           .tabbar-wrapper .tabbar ul li a:hover span {
             color: #6C7486; }
-  .tabbar-wrapper .tabbar.inside ul li a {
-    overflow: hidden;
-    height: 60px; }
-    .tabbar-wrapper .tabbar.inside ul li a span {
-      z-index: 1;
-      transition: transform .4s ease 0s;
-      transform: translate(0, -100%); }
-    .tabbar-wrapper .tabbar.inside ul li a.pressed svg {
-      transform: translateY(5px) scale(0.85); }
-      .tabbar-wrapper .tabbar.inside ul li a.pressed svg path {
-        fill: #4D61FC !important; }
-    .tabbar-wrapper .tabbar.inside ul li a.pressed span {
-      color: #4D61FC;
-      transition-delay: .3s;
-      transform: translate(0, 7px); }
 
 @media (max-width: 776px) {
   .button {
     display: block;
     width: 100%; } }
+
+@media (max-width: 576px) {
+  .age-info {
+    display: none; } }
 
 /*
 * CSS grid
